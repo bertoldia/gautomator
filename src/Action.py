@@ -22,14 +22,29 @@ class Action:
     def execute(self, gfile):
         path = gfile.get_path()
         wd = gfile.get_parent().get_path()
-        #argv = []
-        #argv.append(self.command)
-        argv = self.command.split(' ')
-        argv.append(path)
-        print("Executing '%s' on '%s'" %(self.command, path))
+
+        argv = self.makeArgv(path)
+        cmdLine = " ".join(argv)
+        print("Executing '%s'" %(cmdLine))
 
         try:
             GLib.spawn_async(argv, working_directory = wd, \
                              flags = GLib.SPAWN_SEARCH_PATH)
         except GLib.Error as e:
-            print("Failed to execute '%s' on '%s': %s" %(self.command, path, e))
+            print("Failed to execute '%s': %s" %(cmdLine, e))
+
+    def makeArgv(self, path):
+        '''
+        Split the command at every space character and replace %s with the file
+        on which to execute the command.
+        '''
+        result = self.command.split(' ')
+        i = 0
+        while i < len(result):
+            try:
+                result[i] = result[i] %(path)
+                break
+            except TypeError as e:
+                pass
+            i += 1
+        return result
