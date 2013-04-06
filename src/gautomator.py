@@ -17,34 +17,16 @@
 
 from gi.repository import Gtk
 import sys
-import MonitorFactory
-import Settings
+from GAutomator import GAutomator
 
 #Comment the first line and uncomment the second before installing
 #or making the tarball (alternatively, use project variables)
 UI_FILE = "gautomator.ui"
 #UI_FILE = "/usr/local/share/gautomator/ui/gautomator.ui"
 
-
-class GAutomator:
-    def __init__(self):
-        self.builder = Gtk.Builder()
-        self.builder.add_from_file(UI_FILE)
-        self.builder.connect_signals(self)
-        window = self.builder.get_object('window')
-        window.connect('delete-event', destroy)
-        window.show_all()
-
-        settings = Settings.makeSettings()
-        factory = MonitorFactory.makeMonitorFactory(settings)
-        self.monitors = factory.makeMonitors()
-
 def main():
     app = GAutomator()
-    Gtk.main()
-
-def destroy(window, event):
-    Gtk.main_quit()
+    return app.run()
 
 if __name__ == "__main__":
     sys.exit(main())
