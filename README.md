@@ -14,7 +14,7 @@ etc.) will trigger the command. GAutomator can also automatically monitor
 folders recursively.
 
 A typical use case it to automatically compile your .tex files when you save
-them, or automatically rename, rotate and resize pigtures when you copy them
+them, or automatically rename, rotate and resize pictures when you copy them
 from your digital camera to your Photos folder.
 
 ## Details
