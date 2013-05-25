@@ -49,7 +49,7 @@ class Event:
         return self.gfile
 
     def getType(self):
-        return self.event_time
+        return self.event_type
 
     def typeMatches(self, event_types):
         return (self.event_type & event_types > 0)
